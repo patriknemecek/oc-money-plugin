@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Initbiz\Money\Classes;
 
 use Responsiv\Currency\Models\Currency;
-use Responsiv\Currency\Helpers\Currency as CurrencyHelper;
+use October\Rain\Support\Facades\Currency as CurrencyFacade;
 
 class Helpers
 {
@@ -28,9 +28,7 @@ class Helpers
      */
     public static function formatMoney(int $amount, string $currencyCode): string
     {
-        $currencyHelper = new CurrencyHelper();
-
-        return $currencyHelper->format(self::formatAmountDot($amount, $currencyCode), ['in' => $currencyCode]);
+        return CurrencyFacade::format(self::formatAmountDot($amount, $currencyCode), ['in' => $currencyCode]);
     }
 
     /**
@@ -43,7 +41,7 @@ class Helpers
     public static function formatAmountDot(int $amount, string $currencyCode): string
     {
         $currency = Currency::findByCode($currencyCode);
-        $fractionDigits = (int) ($currency->initbiz_money_fraction_digits ?? 2);
+        $fractionDigits = $currency->initbiz_money_fraction_digits;
         $dotAmount = $amount / pow(10, $fractionDigits);
         return number_format($dotAmount, $fractionDigits, ".", "");
     }
@@ -64,7 +62,7 @@ class Helpers
             return '';
         }
 
-        return self::formatMoney((int) $params['amount'], $params['currency']);
+        return self::formatMoney($params['amount'], $params['currency']);
     }
 
     /**
