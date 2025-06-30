@@ -28,7 +28,7 @@ class Helpers
      */
     public static function formatMoney(int $amount, string $currencyCode): string
     {
-        return CurrencyFacade::format(self::formatAmountDot($amount, $currencyCode), ['in' => $currencyCode]);
+        return CurrencyFacade::format($amount, ['in' => $currencyCode]);
     }
 
     /**
