@@ -1,5 +1,5 @@
 {
-    "name": "initbiz/money-plugin",
+    "name": "patriknemecek/money-plugin",
     "type": "october-plugin",
     "description": "Utility to use money types in OctoberCMS",
     "license": "MIT",
